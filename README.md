@@ -7,7 +7,7 @@ Simply wrap a koa app with this module:
 ```js
 var koa = require('koa')
 var app = koa()
-require('qs')(app)
+require('koa-qs')(app)
 ```
 
 Note that this module __does not include qs__. You need to install it on your own. This way, you don't have to worry about upgrading this module. Thus, your `package.json` should look something like this:
