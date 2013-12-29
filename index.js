@@ -1,5 +1,5 @@
-var qs = require('qs')
-var merge = require('merge-descriptors')
+var qs = require('qs');
+var merge = require('merge-descriptors');
 
 module.exports = function (app) {
   merge(app.request, {
@@ -28,8 +28,8 @@ module.exports = function (app) {
 
     set query(obj) {
       this.querystring = qs.stringify(obj);
-    },
-  })
+    }
+  });
 
-  return app
-}
+  return app;
+};
