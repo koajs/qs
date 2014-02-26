@@ -11,11 +11,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/funraiseme/simgr.git"
+    "url": "https://github.com/koajs/qs.git"
   },
   "bugs": {
     "mail": "me@jongleberry.com",
-    "url": "https://github.com/funraiseme/simgr/issues"
+    "url": "https://github.com/koajs/qs/issues"
   },
   "dependencies": {
     "merge-descriptors": "0.0.2"
