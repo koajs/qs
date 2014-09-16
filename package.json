@@ -9,31 +9,28 @@
     "twitter": "https://twitter.com/jongleberry"
   },
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/koajs/qs.git"
-  },
-  "bugs": {
-    "mail": "me@jongleberry.com",
-    "url": "https://github.com/koajs/qs/issues"
-  },
+  "repository": "koajs/qs",
   "dependencies": {
     "merge-descriptors": "0.0.2"
   },
   "devDependencies": {
+    "istanbul-harmony": "0",
     "qs": "*",
-    "koa": "*",
-    "mocha": "*",
-    "should": "*",
-    "supertest": "*"
+    "koa": "0",
+    "mocha": "1",
+    "should": "3",
+    "supertest": "0"
   },
   "peerDependencies": {
     "qs": "*"
   },
   "scripts": {
-    "test": "mocha --harmony --reporter spec --require should"
+    "test": "NODE_ENV=test mocha --harmony-generators --require should --reporter spec",
+    "test-cov": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should",
+    "test-travis": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should"
   },
   "engines": {
-    "node": ">= 0.11.3"
-  }
+    "node": ">= 0.11"
+  },
+  "files": ["index.js"]
 }
