@@ -1,10 +1,11 @@
 var request = require('supertest')
 var koa = require('koa')
+var urllib = require('urllib')
 
 var qs = require('..')
 
 describe('Koa Querystring', function () {
-  it('should work', function (done) {
+  it('should work with extended mode by default', function (done) {
     var app = qs(koa())
 
     app.use(function* (next) {
@@ -36,5 +37,54 @@ describe('Koa Querystring', function () {
     request(app.listen())
     .get('/?a[0]=1&a[1]=2&a[2]=3')
     .expect(204, done)
+  })
+
+  describe('strict mode', function () {
+    var app = qs(koa(), 'strict')
+
+    app.use(function* () {
+      this.body = [this.query, this.query]
+    })
+
+    var host
+    before(function (done) {
+      app.listen(0, function () {
+        host = 'http://localhost:' + this.address().port
+        done()
+      })
+    })
+
+    it('should return the first query params string', function (done) {
+      urllib.request(host + '/foo?p=a,b&p=b,c&empty=&empty=&empty=&n=1&n=2&n=1&ok=true', {
+        dataType: 'json'
+      }, function (err, body, res) {
+        res.statusCode.should.equal(200)
+        body.should.eql([
+          {
+            p: 'a,b',
+            empty: '',
+            n: '1',
+            ok: 'true'
+          },
+          {
+            p: 'a,b',
+            empty: '',
+            n: '1',
+            ok: 'true'
+          }
+        ])
+        done(err)
+      })
+    })
+
+    it('should return empty query', function (done) {
+      urllib.request(host, {
+        dataType: 'json'
+      }, function (err, body, res) {
+        res.statusCode.should.equal(200)
+        body.should.eql([{}, {}])
+        done(err)
+      })
+    })
   })
 })
