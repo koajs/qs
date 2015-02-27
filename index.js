@@ -1,7 +1,12 @@
-var qs = require('qs')
-var merge = require('merge-descriptors')
+var merge = require('merge-descriptors');
 
-module.exports = function (app) {
+module.exports = function (app, mode) {
+  mode = mode || 'extended';
+  var qs = require('querystring');
+  if (mode === 'extended') {
+    qs = require('qs');
+  }
+
   merge(app.request, {
 
     /**
@@ -16,7 +21,20 @@ module.exports = function (app) {
       if (!str) return {};
 
       var c = this._querycache = this._querycache || {};
-      return c[str] || (c[str] = qs.parse(str));
+      var query = c[str];
+      if (!query) {
+        c[str] = query = qs.parse(str);
+        if (mode === 'strict') {
+          // return string params only, disable multi values
+          for (var key in query) {
+            var value = query[key];
+            if (Array.isArray(value)) {
+              query[key] = value[0];
+            }
+          }
+        }
+      }
+      return query;
     },
 
     /**
@@ -29,7 +47,7 @@ module.exports = function (app) {
     set query(obj) {
       this.querystring = qs.stringify(obj);
     },
-  })
+  });
 
-  return app
-}
+  return app;
+};
