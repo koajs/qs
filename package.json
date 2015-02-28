@@ -17,7 +17,7 @@
   "devDependencies": {
     "istanbul-harmony": "*",
     "koa": "0",
-    "mocha": "1",
+    "mocha": "2",
     "should": "3",
     "supertest": "0",
     "urllib": "2"
