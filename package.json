@@ -11,19 +11,16 @@
   "license": "MIT",
   "repository": "koajs/qs",
   "dependencies": {
-    "merge-descriptors": "~0.0.2"
+    "merge-descriptors": "~0.0.2",
+    "qs": "~2.3.3"
   },
   "devDependencies": {
     "istanbul-harmony": "*",
     "koa": "0",
     "mocha": "1",
-    "qs": "*",
     "should": "3",
     "supertest": "0",
-    "urllib": "~2.3.0"
-  },
-  "peerDependencies": {
-    "qs": "*"
+    "urllib": "2"
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --harmony --require should --reporter spec",

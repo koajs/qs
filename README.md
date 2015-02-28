@@ -35,17 +35,6 @@ var app = koa()
 require('koa-qs')(app)
 ```
 
-Note that this module __does not include [qs]__. You need to install it on your own. This way, you don't have to worry about upgrading this module. Thus, your `package.json` should look something like this:
-
-```json
-{
-  "dependencies": {
-    "koa-qs": "1.0.0",
-    "qs": "0.6.6"
-  }
-}
-```
-
 ## Optional parse mode
 
 There're three parse mode.
