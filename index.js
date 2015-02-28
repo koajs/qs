@@ -6,6 +6,29 @@ module.exports = function (app, mode) {
   if (mode === 'extended') {
     qs = require('qs');
   }
+  var converter = null;
+  if (mode === 'strict') {
+    converter = function (value) {
+      if (!Array.isArray(value)) {
+        return [value];
+      }
+      return value;
+    };
+  } else if (mode === 'first') {
+    converter = function (value) {
+      if (Array.isArray(value)) {
+        return value[0];
+      }
+      return value;
+    };
+  } else if (mode === 'last') {
+    converter = function (value) {
+      if (Array.isArray(value)) {
+        return value[value.length - 1];
+      }
+      return value;
+    };
+  }
 
   merge(app.request, {
 
@@ -24,13 +47,9 @@ module.exports = function (app, mode) {
       var query = c[str];
       if (!query) {
         c[str] = query = qs.parse(str);
-        if (mode === 'strict') {
-          // return string params only, disable multi values
+        if (converter) {
           for (var key in query) {
-            var value = query[key];
-            if (Array.isArray(value)) {
-              query[key] = value[0];
-            }
+            query[key] = converter(query[key]);
           }
         }
       }

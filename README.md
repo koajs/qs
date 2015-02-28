@@ -54,10 +54,44 @@ If you want to use this mode, don't use this module.
 
 ## `strict` mode
 
-This mode make `this.query.foo` return strict `string`. Disable multi values.
+This mode make `this.query.foo` return strict `array`.
 
 ```js
 require('koa-qs')(app, 'strict')
+```
+
+#### What's different
+
+A normal request `GET /foo?p=a&q=foo&q=bar`.
+
+- before patch
+
+```js
+console.log('%j', this.query);
+{
+  "p": "a",
+  "q": ["foo", "bar"]
+}
+```
+
+- after patch
+
+```js
+console.log('%j', this.query);
+{
+  "p": ["a"],
+  "q": ["foo", "bar"]
+}
+```
+
+## `first` mode
+
+This mode make `this.query.foo` return strict `string`. Disable multi values.
+
+If querystring contains multi same name params, return the **first** item.
+
+```js
+require('koa-qs')(app, 'first')
 ```
 
 In 95% use cases, application only want `string` query params.
@@ -81,6 +115,33 @@ console.log('%j', this.query.p);
 ```js
 console.log('%j', this.query.p);
 "a,b"
+```
+
+## `last` mode
+
+The only different to `first` mode:
+If querystring contains multi same name params, return the **last** item.
+
+```js
+require('koa-qs')(app, 'last')
+```
+
+#### What's different
+
+A normal request `GET /foo?p=a,b&p=b,c`.
+
+- before patch
+
+```js
+console.log('%j', this.query.p);
+["a,b", "b,c"]
+```
+
+- after patch
+
+```js
+console.log('%j', this.query.p);
+"b,c"
 ```
 
 ## License
