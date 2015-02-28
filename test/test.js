@@ -114,37 +114,4 @@ describe('Koa Querystring', function () {
       })
     })
   })
-
-  describe('last mode: last string item', function () {
-    var app = qs(koa(), 'last')
-
-    app.use(function* () {
-      this.body = this.query;
-    })
-
-    var host
-    before(function (done) {
-      app.listen(0, function () {
-        host = 'http://localhost:' + this.address().port
-        done()
-      })
-    })
-
-    it('should return the last query params string', function (done) {
-      urllib.request(host + '/foo?p=a,b&p=b,c&empty=&empty=&empty=&n=1&n=2&n=3&ok=true', {
-        dataType: 'json'
-      }, function (err, body, res) {
-        res.statusCode.should.equal(200)
-        body.should.eql(
-          {
-            p: 'b,c',
-            empty: '',
-            n: '3',
-            ok: 'true'
-          }
-        )
-        done(err)
-      })
-    })
-  })
 })

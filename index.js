@@ -21,13 +21,6 @@ module.exports = function (app, mode) {
       }
       return value;
     };
-  } else if (mode === 'last') {
-    converter = function (value) {
-      if (Array.isArray(value)) {
-        return value[value.length - 1];
-      }
-      return value;
-    };
   }
 
   merge(app.request, {

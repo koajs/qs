@@ -117,33 +117,6 @@ console.log('%j', this.query.p);
 "a,b"
 ```
 
-## `last` mode
-
-The only different to `first` mode:
-If querystring contains multi same name params, return the **last** item.
-
-```js
-require('koa-qs')(app, 'last')
-```
-
-#### What's different
-
-A normal request `GET /foo?p=a,b&p=b,c`.
-
-- before patch
-
-```js
-console.log('%j', this.query.p);
-["a,b", "b,c"]
-```
-
-- after patch
-
-```js
-console.log('%j', this.query.p);
-"b,c"
-```
-
 ## License
 
 [MIT](LICENSE)
