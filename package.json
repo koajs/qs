@@ -18,7 +18,7 @@
     "istanbul-harmony": "*",
     "koa": "0",
     "mocha": "2",
-    "should": "3",
+    "should": "8.1.1",
     "supertest": "0",
     "urllib": "2"
   },
