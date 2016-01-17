@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": "koajs/qs",
   "dependencies": {
-    "merge-descriptors": "~0.0.2",
+    "merge-descriptors": "~1.0.1",
     "qs": "~2.3.3"
   },
   "devDependencies": {
