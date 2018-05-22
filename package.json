@@ -11,8 +11,8 @@
   "license": "MIT",
   "repository": "koajs/qs",
   "dependencies": {
-    "merge-descriptors": "~0.0.2",
-    "qs": "~2.3.3"
+    "merge-descriptors": "~1.0.1",
+    "qs": "~6.5.2"
   },
   "devDependencies": {
     "istanbul-harmony": "*",
