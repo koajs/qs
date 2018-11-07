@@ -12,13 +12,13 @@
   "repository": "koajs/qs",
   "dependencies": {
     "merge-descriptors": "~0.0.2",
-    "qs": "~2.3.3"
+    "qs": "^6.5.2"
   },
   "devDependencies": {
     "istanbul-harmony": "*",
     "koa": "0",
     "mocha": "2",
-    "should": "3",
+    "should": "^13.2.3",
     "supertest": "0",
     "urllib": "2"
   },
