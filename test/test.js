@@ -18,17 +18,17 @@ describe('Koa Querystring', function () {
 
     app.use(function* () {
       this.query.should.eql({
-        a: [1, 2, 3]
+        a: ['1', '2', '3']
       })
       this.query = {
         a: [1, 2]
       }
       this.query.should.eql({
-        a: [1, 2]
+        a: ['1', '2']
       })
       this.querystring = 'a[0]=1&a[1]=2&a[2]=3'
       this.query.should.eql({
-        a: [1, 2, 3]
+        a: ['1', '2', '3']
       })
 
       this.status = 204
@@ -112,6 +112,53 @@ describe('Koa Querystring', function () {
         )
         done(err)
       })
+    })
+  })
+
+  describe('custom qs options', function () {
+    it('should correctly parse numbers and booleans', function (done) {
+      var app = qs(koa(), null, {
+        decoder: function (str) {
+          switch (str) {
+            case 'true': return true;
+            case 'false': return false;
+            case 'null': return null;
+          }
+
+          if (/^[\d.]+$/.test(str)) {
+            return Number(str);
+          }
+
+          return str;
+        }
+      })
+
+      app.use(function* (next) {
+        try {
+          yield* next
+        } catch (err) {
+          console.error(err.stack)
+        }
+      })
+
+      app.use(function* () {
+        this.body = this.query;
+      })
+
+      request(app.listen())
+        .get('/?a=str&b=1&c=3.1415&d=true&e=false&f=null&g=2.7182e')
+        .expect(function (res) {
+          res.body.should.eql({
+            a: 'str',
+            b: 1,
+            c: 3.1415,
+            d: true,
+            e: false,
+            f: null,
+            g: '2.7182e',
+          })
+        })
+        .expect(200, done);
     })
   })
 })
