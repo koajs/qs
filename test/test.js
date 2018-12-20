@@ -1,12 +1,12 @@
 var request = require('supertest')
-var koa = require('koa')
+var Koa = require('koa')
 var urllib = require('urllib')
 
 var qs = require('..')
 
 describe('Koa Querystring', function () {
   it('should work with extended mode by default', function (done) {
-    var app = qs(koa())
+    var app = qs(new Koa())
 
     app.use(function* (next) {
       try {
@@ -40,7 +40,7 @@ describe('Koa Querystring', function () {
   })
 
   describe('strict mode: array item', function () {
-    var app = qs(koa(), 'strict')
+    var app = qs(new Koa(), 'strict')
 
     app.use(function* () {
       this.body = this.query;
@@ -83,7 +83,7 @@ describe('Koa Querystring', function () {
   })
 
   describe('first mode: first string item', function () {
-    var app = qs(koa(), 'first')
+    var app = qs(new Koa(), 'first')
 
     app.use(function* () {
       this.body = this.query;

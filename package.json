@@ -15,21 +15,20 @@
     "qs": "~2.3.3"
   },
   "devDependencies": {
-    "istanbul-harmony": "*",
-    "koa": "0",
-    "mocha": "2",
+    "istanbul": "0.4.5",
+    "koa": "^2.6.2",
+    "mocha": "^5.2.0",
     "should": "3",
-    "supertest": "0",
+    "supertest": "^3.3.0",
     "urllib": "2"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha --harmony --require should --reporter spec",
-    "test-cov": "NODE_ENV=test node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should",
-    "test-travis": "NODE_ENV=test node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should"
+    "test": "NODE_ENV=test mocha --require should --reporter spec --exit",
+    "test-cov": "NODE_ENV=test node ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should --exit",
+    "test-travis": "NODE_ENV=test node ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should --exit"
   },
   "engines": {
-    "node": ">= 0.11",
-    "iojs": ">= 1.0.0"
+    "node": ">= 6.0.0"
   },
   "files": [
     "index.js"
