@@ -18,17 +18,17 @@ describe('Koa Querystring', function () {
 
     app.use(function* () {
       this.query.should.eql({
-        a: [1, 2, 3]
+        a: ['1', '2', '3']
       })
       this.query = {
-        a: [1, 2]
+        a: ['1', '2']
       }
       this.query.should.eql({
-        a: [1, 2]
+        a: ['1', '2']
       })
       this.querystring = 'a[0]=1&a[1]=2&a[2]=3'
       this.query.should.eql({
-        a: [1, 2, 3]
+        a: ['1', '2', '3']
       })
 
       this.status = 204

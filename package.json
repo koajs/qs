@@ -1,7 +1,7 @@
 {
   "name": "koa-qs",
   "description": "qs for koa",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -11,16 +11,16 @@
   "license": "MIT",
   "repository": "koajs/qs",
   "dependencies": {
-    "merge-descriptors": "~0.0.2",
-    "qs": "~2.3.3"
+    "merge-descriptors": "^1.0.1",
+    "qs": "^6.9.1"
   },
   "devDependencies": {
-    "istanbul-harmony": "*",
-    "koa": "0",
-    "mocha": "2",
-    "should": "3",
-    "supertest": "0",
-    "urllib": "2"
+    "istanbul": "0.4",
+    "koa": "1",
+    "mocha": "7.x",
+    "should": "13.x",
+    "supertest": "4.x",
+    "urllib": "2.34"
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --harmony --require should --reporter spec",
