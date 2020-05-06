@@ -1,0 +1,8 @@
+{
+  "extension": ["js"],
+  "require": "should",
+  "reporter": "spec",
+  "timeout": "2000",
+  "watch-files": ["test/**/*.js"],
+  "exit": "true"
+}
