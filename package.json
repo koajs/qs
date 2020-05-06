@@ -2,6 +2,9 @@
   "name": "koa-qs",
   "description": "qs for koa",
   "version": "2.0.0",
+  "files": [
+    "index.js"
+  ],
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -11,27 +14,27 @@
   "license": "MIT",
   "repository": "koajs/qs",
   "dependencies": {
-    "merge-descriptors": "~0.0.2",
-    "qs": "~2.3.3"
+    "merge-descriptors": "^1.0.1",
+    "qs": "^6.9.4"
   },
   "devDependencies": {
-    "istanbul-harmony": "*",
-    "koa": "0",
-    "mocha": "2",
-    "should": "3",
-    "supertest": "0",
-    "urllib": "2"
+    "koa": "^2.11.0",
+    "koa-convert": "^1.2.0",
+    "mocha": "^7.1.2",
+    "nyc": "^15.0.1",
+    "rimraf": "^3.0.2",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2",
+    "urllib": "^2.34.2"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha --harmony --require should --reporter spec",
-    "test-cov": "NODE_ENV=test node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should",
-    "test-travis": "NODE_ENV=test node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should"
+    "test": "mocha",
+    "precoverage": "rimraf .nyc_output coverage",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "postcoverage":"nyc report",
+    "ci": "npm run coverage"
   },
   "engines": {
-    "node": ">= 0.11",
-    "iojs": ">= 1.0.0"
-  },
-  "files": [
-    "index.js"
-  ]
+    "node": ">= 8"
+  }
 }
