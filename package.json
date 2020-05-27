@@ -11,6 +11,18 @@
     "url": "http://jongleberry.com",
     "twitter": "https://twitter.com/jongleberry"
   },
+  "contributors": [
+    {
+      "name": "Nick Baugh",
+      "email": "niftylettuce@gmail.com",
+      "url": "http://niftylettuce.com/"
+    },
+    {
+      "name": "Imed Jaberi",
+      "email": "imed_jebari@hotmail.fr",
+      "url": "https://www.3imed-jaberi.com/"
+    }
+  ],
   "license": "MIT",
   "repository": "koajs/qs",
   "dependencies": {

@@ -1,6 +1,6 @@
 const merge = require('merge-descriptors');
 
-module.exports = function (app, mode) {
+module.exports = function (app, mode, options) {
   mode = mode || 'extended';
   const qs = (mode === 'extended') ? require('qs') : require('querystring');
 
@@ -25,7 +25,7 @@ module.exports = function (app, mode) {
       let c = this._querycache = this._querycache || {};
       let query = c[str];
       if (!query) {
-        c[str] = query = qs.parse(str);
+        c[str] = query = qs.parse(str, options);
         if (converter) {
           for (let key in query) {
             query[key] = converter(query[key]);
