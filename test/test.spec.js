@@ -1,38 +1,38 @@
-var request = require('supertest')
-var koa = require('koa')
-var urllib = require('urllib')
-
-var qs = require('..')
+const request = require('supertest')
+const Koa = require('koa')
+const urllib = require('urllib')
+const convert = require('koa-convert')
+const qs = require('..')
 
 describe('Koa Querystring', function () {
   it('should work with extended mode by default', function (done) {
-    var app = qs(koa())
+    let app = qs(new Koa())
 
-    app.use(function* (next) {
+    app.use(convert(function* (next) {
       try {
         yield* next
       } catch (err) {
         console.error(err.stack)
       }
-    })
+    }))
 
-    app.use(function* () {
+    app.use(convert(function* () {
       this.query.should.eql({
-        a: [1, 2, 3]
+        a: ['1', '2', '3']
       })
       this.query = {
-        a: [1, 2]
+        a: ['1', '2']
       }
       this.query.should.eql({
-        a: [1, 2]
+        a: ['1', '2']
       })
       this.querystring = 'a[0]=1&a[1]=2&a[2]=3'
       this.query.should.eql({
-        a: [1, 2, 3]
+        a: ['1', '2', '3']
       })
 
       this.status = 204
-    })
+    }))
 
     request(app.listen())
     .get('/?a[0]=1&a[1]=2&a[2]=3')
@@ -40,22 +40,22 @@ describe('Koa Querystring', function () {
   })
 
   describe('strict mode: array item', function () {
-    var app = qs(koa(), 'strict')
+    let app = qs(new Koa(), 'strict')
 
-    app.use(function* () {
+    app.use(convert(function* () {
       this.body = this.query;
-    })
+    }))
 
-    var host
+    let host
     before(function (done) {
       app.listen(0, function () {
-        host = 'http://localhost:' + this.address().port
+        host = `http://localhost:${this.address().port}`
         done()
       })
     })
 
     it('should return the query params array', function (done) {
-      urllib.request(host + '/foo?p=a,b&p=b,c&empty=&empty=&empty=&n=1&n=2&n=1&ok=true', {
+      urllib.request(`${host}/foo?p=a,b&p=b,c&empty=&empty=&empty=&n=1&n=2&n=1&ok=true`, {
         dataType: 'json'
       }, function (err, body, res) {
         res.statusCode.should.equal(200)
@@ -83,22 +83,22 @@ describe('Koa Querystring', function () {
   })
 
   describe('first mode: first string item', function () {
-    var app = qs(koa(), 'first')
+    let app = qs(new Koa(), 'first')
 
-    app.use(function* () {
+    app.use(convert(function* () {
       this.body = this.query;
-    })
+    }))
 
-    var host
+    let host
     before(function (done) {
       app.listen(0, function () {
-        host = 'http://localhost:' + this.address().port
+        host = `http://localhost:${this.address().port}`
         done()
       })
     })
 
     it('should return the first query params string', function (done) {
-      urllib.request(host + '/foo?p=a,b&p=b,c&empty=&empty=&empty=&n=1&n=2&n=1&ok=true', {
+      urllib.request(`${host}/foo?p=a,b&p=b,c&empty=&empty=&empty=&n=1&n=2&n=1&ok=true`, {
         dataType: 'json'
       }, function (err, body, res) {
         res.statusCode.should.equal(200)

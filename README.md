@@ -4,7 +4,6 @@
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![David deps][david-image]][david-url]
-[![iojs version][iojs-image]][iojs-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
 
@@ -16,22 +15,25 @@
 [coveralls-url]: https://coveralls.io/r/koajs/qs?branch=master
 [david-image]: https://img.shields.io/david/koajs/qs.svg?style=flat-square
 [david-url]: https://david-dm.org/koajs/qs
-[iojs-image]: https://img.shields.io/badge/io.js-%3E=_1.0-yellow.svg?style=flat-square
-[iojs-url]: http://iojs.org/
-[node-image]: https://img.shields.io/badge/node.js-%3E=_0.11-green.svg?style=flat-square
+[node-image]: https://img.shields.io/badge/node.js-%3E=_8-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/koa-qs.svg?style=flat-square
 [download-url]: https://npmjs.org/package/koa-qs
 
 By default, Koa uses the native `querystring` module which does not provide nesting support.
-This patches a koa app with nesting support via the [qs] support,
+This patches a koa app with nesting support via the [qs](https://github.com/ljharb/qs) support,
 which is also used by Connect and Express.
 
 Simply wrap a koa app with this module:
 
 ```js
-var koa = require('koa')
-var app = koa()
+// Koa 1.x.x
+const koa = require('koa')
+const app = koa()
+require('koa-qs')(app)
+// Koa 2.x.x
+const Koa = require('koa')
+const app = new Koa()
 require('koa-qs')(app)
 ```
 
@@ -120,6 +122,3 @@ console.log('%j', this.query.p);
 ## License
 
 [MIT](LICENSE)
-
-
-[qs]: https://github.com/hapijs/qs
