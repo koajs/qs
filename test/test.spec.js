@@ -114,4 +114,51 @@ describe('Koa Querystring', function () {
       })
     })
   })
+
+  describe('custom qs options', function () {
+    it('should correctly parse numbers and booleans', function (done) {
+      let app = qs(new Koa(), null, {
+        decoder: function (str) {
+          switch (str) {
+            case 'true': return true;
+            case 'false': return false;
+            case 'null': return null;
+          }
+
+          if (/^[\d.]+$/.test(str)) {
+            return Number(str);
+          }
+
+          return str;
+        }
+      })
+
+      app.use(convert(function* (next) {
+        try {
+          yield* next
+        } catch (err) {
+          console.error(err.stack)
+        }
+      }))
+
+      app.use(convert(function* () {
+        this.body = this.query;
+      }))
+
+      request(app.listen())
+        .get('/?a=str&b=1&c=3.1415&d=true&e=false&f=null&g=2.7182e')
+        .expect(function (res) {
+          res.body.should.eql({
+            a: 'str',
+            b: 1,
+            c: 3.1415,
+            d: true,
+            e: false,
+            f: null,
+            g: '2.7182e',
+          })
+        })
+        .expect(200, done);
+    })
+  })
 })
