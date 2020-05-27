@@ -2,9 +2,6 @@
   "name": "koa-qs",
   "description": "qs for koa",
   "version": "2.0.0",
-  "files": [
-    "index.js"
-  ],
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -23,8 +20,6 @@
       "url": "https://www.3imed-jaberi.com/"
     }
   ],
-  "license": "MIT",
-  "repository": "koajs/qs",
   "dependencies": {
     "merge-descriptors": "^1.0.1",
     "qs": "^6.9.4"
@@ -39,14 +34,19 @@
     "supertest": "^4.0.2",
     "urllib": "^2.34.2"
   },
-  "scripts": {
-    "test": "mocha",
-    "precoverage": "rimraf .nyc_output coverage",
-    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "postcoverage":"nyc report",
-    "ci": "npm run coverage"
-  },
   "engines": {
     "node": ">= 8"
+  },
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": "koajs/qs",
+  "scripts": {
+    "ci": "npm run coverage",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "postcoverage": "nyc report",
+    "precoverage": "rimraf .nyc_output coverage",
+    "test": "mocha"
   }
 }
