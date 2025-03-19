@@ -1,7 +1,7 @@
 {
   "name": "koa-qs",
   "description": "qs for koa",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "merge-descriptors": "^1.0.1",
-    "qs": "^6.9.4"
+    "qs": "^6.12.3"
   },
   "devDependencies": {
     "koa": "^2.11.0",
